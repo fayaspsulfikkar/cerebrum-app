@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>CEREBRUM — Compare</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{--cyan:#00e5ff;--bg:#000;--card:#0a0a0a;--border:#1a1a1a;--text:#e0e0e0}
+    body{font-family:'IBM Plex Mono',monospace;background:var(--bg);color:var(--text);min-height:100vh}
+    .topbar{display:flex;justify-content:space-between;align-items:center;padding:.8rem 2rem;border-bottom:1px solid var(--border)}
+    .topbar-logo{font-size:.85rem;font-weight:700;letter-spacing:.2em;color:#fff}.topbar-logo span{color:var(--cyan)}
+    .topbar-nav{display:flex;gap:.5rem;align-items:center}
+    .topbar-link{font-size:.65rem;color:#555;text-decoration:none;padding:.35rem .7rem;border:1px solid var(--border);border-radius:3px;transition:all .12s;letter-spacing:.05em;text-transform:uppercase}
+    .topbar-link:hover,.topbar-link.accent{border-color:var(--cyan);color:var(--cyan)}
+    .user-id{font-size:.6rem;color:#333;margin-right:.3rem}
+
+    .container{max-width:900px;margin:0 auto;padding:2rem}
+    .page-title{font-size:.6rem;color:#333;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.3rem}
+    h1{font-size:1.1rem;font-weight:600;color:#fff;margin-bottom:.2rem}
+    .page-sub{font-size:.7rem;color:#333;margin-bottom:2rem}
+
+    .selector-row{display:flex;gap:1rem;margin-bottom:1.5rem;flex-wrap:wrap}
+    .selector{flex:1;min-width:200px}
+    .selector label{display:block;font-size:.55rem;color:#333;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.3rem}
+    .selector select{width:100%;padding:.55rem .6rem;background:var(--card);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:.68rem;font-family:inherit;outline:none}
+    .selector select:focus{border-color:var(--cyan)}
+    .btn-compare{padding:.55rem 1.5rem;border:1px solid var(--cyan);border-radius:3px;background:transparent;color:var(--cyan);font-size:.72rem;font-weight:600;cursor:pointer;font-family:inherit;letter-spacing:.05em;transition:all .15s;align-self:flex-end}
+    .btn-compare:hover{background:var(--cyan);color:#000}
+    .btn-compare:disabled{opacity:.2;cursor:default}
+
+    .comparison{display:none}.comparison.show{display:block;animation:fadeIn .3s ease}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    .section-label{font-size:.55rem;color:#333;text-transform:uppercase;letter-spacing:.15em;margin-bottom:.8rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+
+    /* Comparison Table */
+    .cmp-table{width:100%;border-collapse:collapse;margin-bottom:2rem}
+    .cmp-table th{font-size:.55rem;color:#333;text-transform:uppercase;letter-spacing:.08em;padding:.5rem .4rem;text-align:center;border-bottom:1px solid var(--border);font-weight:500}
+    .cmp-table th:first-child{text-align:left}
+    .cmp-table td{font-size:.72rem;padding:.5rem .4rem;text-align:center;border-bottom:1px solid var(--border)}
+    .cmp-table td:first-child{text-align:left;color:#888}
+    .cmp-table .v1{color:var(--cyan)}
+    .cmp-table .v2{color:#a855f7}
+    .cmp-table .delta-pos{color:#00e096;font-size:.6rem}
+    .cmp-table .delta-neg{color:#ff3d71;font-size:.6rem}
+    .cmp-table .delta-even{color:#333;font-size:.6rem}
+
+    /* Side-by-side charts */
+    .side-by-side{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:2rem}
+    @media(max-width:700px){.side-by-side{grid-template-columns:1fr}}
+    .side-col{border:1px solid var(--border);border-radius:3px;overflow:hidden}
+    .side-col-label{padding:.4rem .6rem;font-size:.55rem;color:#333;text-transform:uppercase;letter-spacing:.1em;border-bottom:1px solid var(--border);background:var(--card)}
+    .side-col img{width:100%;display:block}
+
+    .winner-box{border:1px solid var(--border);border-radius:3px;padding:1rem;margin-bottom:2rem;background:var(--card)}
+    .winner-title{font-size:.55rem;color:#333;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.5rem}
+    .winner-text{font-size:.7rem;color:var(--cyan)}
+  </style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-logo">CERE<span>B</span>RUM</div>
+  <div class="topbar-nav">
+    <span class="user-id" id="userPill"></span>
+    <a href="/" class="topbar-link accent">+ New</a>
+    <a href="/dashboard" class="topbar-link">Dashboard</a>
+    <a href="#" class="topbar-link" onclick="logout()">Logout</a>
+  </div>
+</div>
+
+<div class="container">
+  <div class="page-title">Compare</div>
+  <h1>Side-by-Side Analysis</h1>
+  <p class="page-sub">Select two analyses to compare brain activation profiles</p>
+
+  <div class="selector-row">
+    <div class="selector"><label>Video A</label><select id="selA"><option value="">Select analysis...</option></select></div>
+    <div class="selector"><label>Video B</label><select id="selB"><option value="">Select analysis...</option></select></div>
+    <button class="btn-compare" id="cmpBtn" onclick="runCompare()" disabled>COMPARE</button>
+  </div>
+
+  <div class="comparison" id="cmpResults">
+    <div class="section-label">Region-by-Region Comparison</div>
+    <table class="cmp-table">
+      <thead><tr><th>Region</th><th id="h1">Video A</th><th id="h2">Video B</th><th>Delta</th></tr></thead>
+      <tbody id="cmpBody"></tbody>
+    </table>
+
+    <div class="winner-box">
+      <div class="winner-title">Summary</div>
+      <div class="winner-text" id="winnerText"></div>
+    </div>
+
+    <div class="section-label">Radar Comparison</div>
+    <div class="side-by-side">
+      <div class="side-col">
+        <div class="side-col-label" id="radarLabelA">Video A</div>
+        <img id="radarA" src="">
+      </div>
+      <div class="side-col">
+        <div class="side-col-label" id="radarLabelB">Video B</div>
+        <img id="radarB" src="">
+      </div>
+    </div>
+
+    <div class="section-label">Timeline Comparison</div>
+    <div class="side-by-side">
+      <div class="side-col">
+        <div class="side-col-label" id="tlLabelA">Video A</div>
+        <img id="tlA" src="">
+      </div>
+      <div class="side-col">
+        <div class="side-col-label" id="tlLabelB">Video B</div>
+        <img id="tlB" src="">
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+const token=localStorage.getItem('token');
+if(!token) window.location.href='/login';
+document.getElementById('userPill').textContent=localStorage.getItem('email')||'';
+
+let analyses=[];
+async function load(){
+  const r=await fetch('/api/analyses',{headers:{'Authorization':'Bearer '+token}});
+  if(r.status===401){window.location.href='/login';return}
+  analyses=await r.json();
+  const sA=document.getElementById('selA'),sB=document.getElementById('selB');
+  analyses.forEach(a=>{
+    const o1=document.createElement('option');o1.value=a.id;o1.textContent=`${a.video_name} (${a.category||'general'})`;sA.appendChild(o1);
+    const o2=o1.cloneNode(true);sB.appendChild(o2);
+  });
+}
+document.getElementById('selA').onchange=document.getElementById('selB').onchange=()=>{
+  const a=document.getElementById('selA').value,b=document.getElementById('selB').value;
+  document.getElementById('cmpBtn').disabled=!(a&&b&&a!==b);
+};
+
+async function runCompare(){
+  const v1=document.getElementById('selA').value,v2=document.getElementById('selB').value;
+  const r=await fetch('/api/compare',{method:'POST',headers:{'Content-Type':'application/json','Authorization':'Bearer '+token},body:JSON.stringify({video1_id:+v1,video2_id:+v2})});
+  const d=await r.json();if(!r.ok){alert(d.error);return}
+
+  document.getElementById('h1').textContent=d.video1.name;
+  document.getElementById('h2').textContent=d.video2.name;
+
+  const body=document.getElementById('cmpBody');body.innerHTML='';
+  let v1Wins=0,v2Wins=0;
+  Object.values(d.comparison).forEach(c=>{
+    const cls=c.delta>0?'delta-pos':c.delta<0?'delta-neg':'delta-even';
+    const sign=c.delta>0?'+':'';
+    body.innerHTML+=`<tr><td>${c.label}</td><td class="v1">${c.v1.toFixed(2)}</td><td class="v2">${c.v2.toFixed(2)}</td><td class="${cls}">${sign}${c.delta.toFixed(2)}</td></tr>`;
+    if(c.delta>0) v1Wins++; else if(c.delta<0) v2Wins++;
+  });
+
+  const winner=v1Wins>v2Wins?d.video1.name:v2Wins>v1Wins?d.video2.name:'Tie';
+  document.getElementById('winnerText').textContent=`${winner} leads in ${Math.max(v1Wins,v2Wins)} of 6 regions`;
+
+  // Charts
+  if(d.video1.radar){document.getElementById('radarA').src=d.video1.radar+'?'+Date.now();document.getElementById('radarLabelA').textContent=d.video1.name}
+  if(d.video2.radar){document.getElementById('radarB').src=d.video2.radar+'?'+Date.now();document.getElementById('radarLabelB').textContent=d.video2.name}
+  if(d.video1.timeline){document.getElementById('tlA').src=d.video1.timeline+'?'+Date.now();document.getElementById('tlLabelA').textContent=d.video1.name}
+  if(d.video2.timeline){document.getElementById('tlB').src=d.video2.timeline+'?'+Date.now();document.getElementById('tlLabelB').textContent=d.video2.name}
+
+  document.getElementById('cmpResults').classList.add('show');
+}
+function logout(){localStorage.removeItem('token');localStorage.removeItem('email');window.location.href='/login'}
+load();
+</script>
+</body>
+</html>

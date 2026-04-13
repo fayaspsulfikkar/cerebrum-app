@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html><head><title>Signing in…</title></head>
+<body>
+<script>
+// Extract token and email from URL params set by the OAuth callback
+const params = new URLSearchParams(window.location.search);
+const token = params.get('token');
+const email = params.get('email');
+const name = params.get('name');
+if (token) {
+  localStorage.setItem('token', token);
+  localStorage.setItem('email', email || '');
+  localStorage.setItem('name', name || '');
+  window.location.href = '/';
+} else {
+  window.location.href = '/login?error=no_token';
+}
+</script>
+</body>
+</html>

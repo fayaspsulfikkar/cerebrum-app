@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>CEREBRUM — Dashboard</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{--cyan:#00e5ff;--bg:#000;--card:#0a0a0a;--border:#1a1a1a;--text:#e0e0e0;--dim:#444}
+    body{font-family:'IBM Plex Mono',monospace;background:var(--bg);color:var(--text);min-height:100vh}
+    .topbar{display:flex;justify-content:space-between;align-items:center;padding:.8rem 2rem;border-bottom:1px solid var(--border)}
+    .topbar-logo{font-size:.85rem;font-weight:700;letter-spacing:.2em;color:#fff}
+    .topbar-logo span{color:var(--cyan)}
+    .topbar-nav{display:flex;gap:.5rem;align-items:center}
+    .topbar-link{font-size:.65rem;color:#555;text-decoration:none;padding:.35rem .7rem;border:1px solid var(--border);border-radius:3px;transition:all .12s;letter-spacing:.05em;text-transform:uppercase}
+    .topbar-link:hover,.topbar-link.accent{border-color:var(--cyan);color:var(--cyan)}
+    .user-id{font-size:.6rem;color:#333;margin-right:.3rem}
+
+    .container{max-width:900px;margin:0 auto;padding:2rem}
+    .page-title{font-size:.6rem;color:#333;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.3rem}
+    h1{font-size:1.1rem;font-weight:600;color:#fff;margin-bottom:.2rem}
+    .page-sub{font-size:.7rem;color:#333;margin-bottom:1.5rem}
+
+    .toolbar{display:flex;gap:.5rem;margin-bottom:1.5rem;flex-wrap:wrap}
+    .btn-outline{padding:.4rem .7rem;border:1px solid var(--border);border-radius:3px;background:transparent;color:#555;font-size:.6rem;font-weight:500;cursor:pointer;font-family:inherit;letter-spacing:.05em;text-transform:uppercase;transition:all .12s;text-decoration:none}
+    .btn-outline:hover{border-color:var(--cyan);color:var(--cyan)}
+
+    .table{width:100%;border-collapse:collapse}
+    .table th{font-size:.55rem;color:#333;text-transform:uppercase;letter-spacing:.1em;padding:.5rem .6rem;text-align:left;border-bottom:1px solid var(--border);font-weight:500}
+    .table td{font-size:.68rem;color:#ccc;padding:.6rem;border-bottom:1px solid var(--border);cursor:pointer}
+    .table tr:hover td{color:var(--cyan)}
+    .table .scores{display:flex;gap:.3rem;flex-wrap:wrap}
+    .table .score-pill{font-size:.5rem;padding:.15rem .35rem;border-radius:2px;border:1px solid var(--border);color:#555;white-space:nowrap}
+    .table .cat{font-size:.55rem;color:#333;text-transform:uppercase;letter-spacing:.05em}
+    .table .delete-btn{padding:.2rem .5rem;border:1px solid #1a1a1a;border-radius:2px;background:transparent;color:#333;font-size:.5rem;cursor:pointer;font-family:inherit;transition:all .12s}
+    .table .delete-btn:hover{border-color:#ff3d71;color:#ff3d71}
+
+    .empty{text-align:center;padding:3rem 0}
+    .empty p{font-size:.7rem;color:#333}
+
+    /* Modal */
+    .modal-overlay{display:none;position:fixed;inset:0;background:rgba(0,0,0,.85);z-index:100;justify-content:center;align-items:flex-start;padding:3rem 1rem;overflow-y:auto}
+    .modal-overlay.show{display:flex}
+    .modal{background:#050505;border:1px solid var(--border);border-radius:4px;width:100%;max-width:700px;padding:2rem}
+    .modal-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:1.5rem}
+    .modal-title{font-size:.85rem;font-weight:600;color:#fff}
+    .modal-close{font-size:.7rem;color:#333;cursor:pointer;border:1px solid var(--border);padding:.2rem .5rem;border-radius:2px;background:transparent;font-family:inherit;transition:all .12s}
+    .modal-close:hover{border-color:var(--cyan);color:var(--cyan)}
+    .modal-meta{font-size:.6rem;color:#333;margin-bottom:1rem;display:flex;gap:1rem}
+    .modal-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:1.2rem}
+    @media(max-width:600px){.modal-grid{grid-template-columns:repeat(2,1fr)}}
+    .m-card{background:var(--card);border:1px solid var(--border);border-radius:3px;padding:.7rem}
+    .m-card-label{font-size:.55rem;color:#555;text-transform:uppercase;letter-spacing:.05em;margin-bottom:.3rem}
+    .m-card-val{font-size:1rem;font-weight:700}
+    .m-card-pct{font-size:.5rem;color:var(--cyan);margin-top:.15rem}
+    .m-card-insight{font-size:.5rem;color:#444;margin-top:.15rem}
+    .modal-chart{border:1px solid var(--border);border-radius:3px;overflow:hidden;margin-bottom:1rem}
+    .modal-chart img{width:100%;display:block}
+    .modal-actions{display:flex;gap:.5rem}
+  </style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-logo">CERE<span>B</span>RUM</div>
+  <div class="topbar-nav">
+    <span class="user-id" id="userPill"></span>
+    <a href="/" class="topbar-link accent">+ New</a>
+    <a href="/compare" class="topbar-link">Compare</a>
+    <a href="#" class="topbar-link" onclick="logout()">Logout</a>
+  </div>
+</div>
+
+<div class="container">
+  <div class="page-title">History</div>
+  <h1>Your Analyses</h1>
+  <p class="page-sub">Click a row to view detailed results</p>
+
+  <div class="toolbar">
+    <a href="/api/export/csv" class="btn-outline">↓ Export All CSV</a>
+  </div>
+
+  <table class="table" id="tableWrap">
+    <thead><tr><th>Video</th><th>Category</th><th>Scores</th><th>Date</th><th></th></tr></thead>
+    <tbody id="tbody"></tbody>
+  </table>
+  <div class="empty" id="empty" style="display:none"><p>No analyses yet. <a href="/" style="color:var(--cyan)">Run your first one.</a></p></div>
+</div>
+
+<!-- Detail Modal -->
+<div class="modal-overlay" id="modal">
+  <div class="modal">
+    <div class="modal-head">
+      <div class="modal-title" id="mTitle"></div>
+      <button class="modal-close" onclick="closeModal()">✕ Close</button>
+    </div>
+    <div class="modal-meta" id="mMeta"></div>
+    <div class="modal-grid" id="mGrid"></div>
+    <div class="modal-chart" id="mRadar"><img id="mRadarImg"><div style="padding:.3rem .5rem;font-size:.5rem;color:#333;text-transform:uppercase;letter-spacing:.08em;border-top:1px solid #1a1a1a">Radar Profile</div></div>
+    <div class="modal-chart" id="mTimeline"><img id="mTimelineImg"><div style="padding:.3rem .5rem;font-size:.5rem;color:#333;text-transform:uppercase;letter-spacing:.08em;border-top:1px solid #1a1a1a">Timeline Heatmap</div></div>
+    <div class="modal-actions">
+      <a class="btn-outline" id="mPdf" href="#">↓ PDF Report</a>
+    </div>
+  </div>
+</div>
+
+<script>
+const COLORS={broca_area:'#00e5ff',amygdala:'#ff3d71',nucleus_accumbens:'#ffaa00',hippocampus:'#00e096',superior_parietal:'#6366f1',tpj:'#a855f7'};
+const token=localStorage.getItem('token');
+if(!token) window.location.href='/login';
+document.getElementById('userPill').textContent=localStorage.getItem('email')||'';
+
+let allData=[];
+async function load(){
+  const r=await fetch('/api/analyses',{headers:{'Authorization':'Bearer '+token}});
+  if(r.status===401){window.location.href='/login';return}
+  allData=await r.json();
+  const tbody=document.getElementById('tbody');
+  if(!allData.length){document.getElementById('empty').style.display='block';document.getElementById('tableWrap').style.display='none';return}
+  document.getElementById('empty').style.display='none';document.getElementById('tableWrap').style.display='table';
+  tbody.innerHTML='';
+  allData.forEach(a=>{
+    const sc=a.region_scores;
+    const pills=Object.entries(sc).map(([k,v])=>`<span class="score-pill" style="border-color:${COLORS[k]||'#333'};color:${COLORS[k]||'#555'}">${v.sub} ${v.score.toFixed(2)}</span>`).join('');
+    const dt=new Date(a.timestamp).toLocaleDateString('en-US',{month:'short',day:'numeric'});
+    tbody.innerHTML+=`<tr onclick="openModal(${a.id})">
+      <td>${a.video_name}</td>
+      <td><span class="cat">${a.category||'general'}</span></td>
+      <td><div class="scores">${pills}</div></td>
+      <td style="font-size:.6rem;color:#333">${dt}</td>
+      <td><button class="delete-btn" onclick="event.stopPropagation();del(${a.id})">Delete</button></td>
+    </tr>`;
+  });
+}
+
+function openModal(id){
+  const a=allData.find(x=>x.id===id);if(!a)return;
+  document.getElementById('mTitle').textContent=a.video_name;
+  document.getElementById('mMeta').innerHTML=`<span>${a.category||'general'}</span><span>${new Date(a.timestamp).toLocaleString()}</span>`;
+  const g=document.getElementById('mGrid');g.innerHTML='';
+  Object.entries(a.region_scores).forEach(([k,v])=>{
+    g.innerHTML+=`<div class="m-card"><div class="m-card-label">${v.sub}</div><div class="m-card-val" style="color:${COLORS[k]||'#fff'}">${v.score.toFixed(2)}</div><div class="m-card-pct">${v.percentile}</div><div class="m-card-insight">${v.insight}</div></div>`;
+  });
+  if(a.radar_path) document.getElementById('mRadarImg').src=a.radar_path+'?'+Date.now();
+  if(a.timeline_path) document.getElementById('mTimelineImg').src=a.timeline_path+'?'+Date.now();
+  document.getElementById('mPdf').href=`/api/export/pdf/${a.id}`;
+  document.getElementById('modal').classList.add('show');
+}
+function closeModal(){document.getElementById('modal').classList.remove('show')}
+
+async function del(id){
+  if(!confirm('Delete this analysis?'))return;
+  await fetch(`/api/analyses/${id}`,{method:'DELETE',headers:{'Authorization':'Bearer '+token}});
+  load();
+}
+function logout(){localStorage.removeItem('token');localStorage.removeItem('email');window.location.href='/login'}
+load();
+</script>
+</body>
+</html>

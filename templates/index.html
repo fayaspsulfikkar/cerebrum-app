@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0">
+  <title>CEREBRUM — Analysis</title>
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    :root{--cyan:#00e5ff;--bg:#000;--card:#0a0a0a;--border:#1a1a1a;--text:#e0e0e0;--dim:#444;--muted:#222}
+    body{font-family:'IBM Plex Mono',monospace;background:var(--bg);color:var(--text);min-height:100vh;padding:0}
+    .topbar{display:flex;justify-content:space-between;align-items:center;padding:.8rem 2rem;border-bottom:1px solid var(--border)}
+    .topbar-logo{font-size:.85rem;font-weight:700;letter-spacing:.2em;color:#fff}
+    .topbar-logo span{color:var(--cyan)}
+    .topbar-nav{display:flex;gap:.5rem;align-items:center}
+    .topbar-link{font-size:.65rem;color:#555;text-decoration:none;padding:.35rem .7rem;border:1px solid var(--border);border-radius:3px;transition:all .12s;letter-spacing:.05em;text-transform:uppercase}
+    .topbar-link:hover{border-color:var(--cyan);color:var(--cyan)}
+    .topbar-link.accent{border-color:var(--cyan);color:var(--cyan)}
+    .user-id{font-size:.6rem;color:#333;margin-right:.3rem}
+
+    .container{max-width:900px;margin:0 auto;padding:2rem 2rem 4rem}
+    .page-title{font-size:.6rem;color:#333;letter-spacing:.15em;text-transform:uppercase;margin-bottom:.3rem}
+    h1{font-size:1.1rem;font-weight:600;color:#fff;margin-bottom:.2rem;letter-spacing:.02em}
+    .page-sub{font-size:.7rem;color:#333;margin-bottom:2rem}
+
+    /* Upload */
+    .upload-section{margin-bottom:0}
+    .upload-zone{border:1px dashed var(--border);border-radius:4px;padding:2rem;text-align:center;cursor:pointer;transition:all .15s;position:relative;margin-bottom:.6rem}
+    .upload-zone:hover,.upload-zone.active{border-color:var(--cyan);border-style:solid}
+    .upload-zone input{position:absolute;inset:0;opacity:0;cursor:pointer}
+    .upload-zone .arrow{font-size:.9rem;color:#333;margin-bottom:.4rem}
+    .upload-zone p{font-size:.65rem;color:#333;letter-spacing:.05em}
+    .fname{font-size:.68rem;color:var(--cyan);margin-bottom:.6rem;min-height:1em}
+    .form-row{display:flex;gap:.6rem;align-items:end;margin-bottom:0}
+    .form-group{flex:1}
+    .form-group label{display:block;font-size:.55rem;color:#333;text-transform:uppercase;letter-spacing:.1em;margin-bottom:.25rem}
+    .form-group select{width:100%;padding:.55rem .6rem;background:var(--card);border:1px solid var(--border);border-radius:3px;color:var(--text);font-size:.72rem;font-family:inherit;outline:none}
+    .form-group select:focus{border-color:var(--cyan)}
+    .btn-analyze{padding:.55rem 1.8rem;border:1px solid var(--cyan);border-radius:3px;background:transparent;color:var(--cyan);font-size:.72rem;font-weight:600;cursor:pointer;font-family:inherit;letter-spacing:.05em;transition:all .15s}
+    .btn-analyze:hover{background:var(--cyan);color:#000}
+    .btn-analyze:disabled{opacity:.2;cursor:default}
+
+    /* Loader */
+    .loader{display:none;text-align:center;padding:3rem 0}
+    .loader.show{display:block}
+    .loader-bar{width:200px;height:2px;background:var(--border);margin:0 auto .8rem;border-radius:1px;overflow:hidden}
+    .loader-fill{width:30%;height:100%;background:var(--cyan);animation:slide 1.5s ease-in-out infinite}
+    @keyframes slide{0%{transform:translateX(-100%)}100%{transform:translateX(400%)}}
+    .loader p{font-size:.65rem;color:#333;letter-spacing:.05em}
+
+    /* Results */
+    .results{display:none}
+    .results.show{display:block;animation:fadeIn .3s ease}
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+
+    .section-label{font-size:.55rem;color:#333;text-transform:uppercase;letter-spacing:.15em;margin-bottom:.8rem;padding-bottom:.4rem;border-bottom:1px solid var(--border)}
+
+    /* Region Grid */
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.6rem;margin-bottom:2rem}
+    @media(max-width:700px){.grid{grid-template-columns:repeat(2,1fr)}}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:4px;padding:1rem;transition:border-color .15s}
+    .card:hover{border-color:#333}
+    .card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:.6rem}
+    .card-label{font-size:.65rem;font-weight:600;color:#ccc;letter-spacing:.03em}
+    .card-sub{font-size:.55rem;color:#333;text-transform:uppercase;letter-spacing:.1em;margin-top:.1rem}
+    .card-val{font-size:1.3rem;font-weight:700;color:var(--cyan)}
+    .bar-track{height:3px;background:var(--border);border-radius:2px;margin-bottom:.4rem;overflow:hidden}
+    .bar-fill{height:100%;border-radius:2px;transition:width .5s ease}
+    .card-pct{font-size:.55rem;color:var(--cyan);margin-bottom:.2rem;letter-spacing:.03em}
+    .card-insight{font-size:.58rem;color:#555;line-height:1.4}
+
+    /* Benchmark bar */
+    .bench{display:none;margin-top:.5rem;padding-top:.4rem;border-top:1px solid var(--border)}
+    .bench.show{display:block}
+    .bench-label{font-size:.5rem;color:#333;text-transform:uppercase;letter-spacing:.08em;margin-bottom:.2rem}
+    .bench-track{height:3px;background:var(--border);border-radius:2px;position:relative;overflow:visible}
+    .bench-fill{height:100%;background:#222;border-radius:2px}
+    .bench-marker{position:absolute;top:-3px;width:2px;height:9px;background:var(--cyan);border-radius:1px}
+
+    /* Strongest */
+    .strongest{margin-bottom:2rem}
+    .sig-row{display:flex;align-items:center;gap:.6rem;padding:.5rem 0;border-bottom:1px solid var(--border)}
+    .sig-rank{font-size:.55rem;color:#333;min-width:1.2rem}
+    .sig-val{font-size:.85rem;font-weight:700;color:#fff;min-width:2.5rem}
+    .sig-name{font-size:.7rem;font-weight:600;color:#ccc}
+    .sig-insight{font-size:.6rem;color:#555;margin-left:auto}
+
+    /* Charts */
+    .chart-section{margin-bottom:2rem}
+    .chart-wrap{border:1px solid var(--border);border-radius:4px;overflow:hidden;background:var(--card)}
+    .chart-wrap img{width:100%;display:block}
+    .chart-cap{padding:.4rem .6rem;font-size:.5rem;color:#333;text-transform:uppercase;letter-spacing:.1em;border-top:1px solid var(--border)}
+
+    /* Toggle row */
+    .toggle-row{display:flex;align-items:center;gap:.5rem;margin-bottom:1rem}
+    .toggle{width:28px;height:14px;border-radius:7px;background:var(--border);cursor:pointer;position:relative;transition:background .15s;flex-shrink:0}
+    .toggle.on{background:var(--cyan)}
+    .toggle::after{content:'';position:absolute;top:2px;left:2px;width:10px;height:10px;border-radius:50%;background:#fff;transition:transform .15s}
+    .toggle.on::after{transform:translateX(14px)}
+    .toggle-label{font-size:.6rem;color:#444;letter-spacing:.03em}
+
+    /* Actions row */
+    .actions{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:2rem}
+    .btn-outline{padding:.45rem .8rem;border:1px solid var(--border);border-radius:3px;background:transparent;color:#555;font-size:.62rem;font-weight:500;cursor:pointer;font-family:inherit;letter-spacing:.05em;text-transform:uppercase;transition:all .12s;text-decoration:none}
+    .btn-outline:hover{border-color:var(--cyan);color:var(--cyan)}
+
+    .new-analysis-btn{width:100%;padding:.6rem;border:1px dashed var(--border);border-radius:3px;background:transparent;color:#333;font-size:.65rem;cursor:pointer;font-family:inherit;letter-spacing:.05em;transition:all .12s}
+    .new-analysis-btn:hover{border-color:var(--cyan);border-style:solid;color:var(--cyan)}
+  </style>
+</head>
+<body>
+<div class="topbar">
+  <div class="topbar-logo">CERE<span>B</span>RUM</div>
+  <div class="topbar-nav">
+    <span class="user-id" id="userPill"></span>
+    <a href="/dashboard" class="topbar-link">Dashboard</a>
+    <a href="/compare" class="topbar-link">Compare</a>
+    <a href="#" class="topbar-link" onclick="logout()">Logout</a>
+  </div>
+</div>
+
+<div class="container">
+  <div class="page-title">Neural Analysis</div>
+  <h1>Upload & Analyze</h1>
+  <p class="page-sub">Process video through TRIBE v2 model</p>
+
+  <form id="form" class="upload-section">
+    <div class="upload-zone" id="zone">
+      <div class="arrow">↑</div>
+      <p>Drop .mp4 or click to select</p>
+      <input type="file" id="file" accept="video/mp4,video/*">
+    </div>
+    <div class="fname" id="fname"></div>
+    <div class="form-row">
+      <div class="form-group">
+        <label>Category</label>
+        <select id="category">
+          <option value="general">General</option>
+          <option value="music">Music</option>
+          <option value="educational">Educational</option>
+          <option value="comedy">Comedy</option>
+          <option value="vlog">Vlog</option>
+          <option value="fitness">Fitness</option>
+        </select>
+      </div>
+      <button type="submit" class="btn-analyze" id="go" disabled>ANALYZE →</button>
+    </div>
+  </form>
+
+  <div class="loader" id="loader">
+    <div class="loader-bar"><div class="loader-fill"></div></div>
+    <p>Running TRIBE v2 inference ...</p>
+  </div>
+
+  <div class="results" id="results">
+    <!-- Actions -->
+    <div class="actions" id="actionRow">
+      <a class="btn-outline" id="csvBtn" href="/api/export/csv">↓ CSV Export</a>
+      <a class="btn-outline" id="pdfBtn" href="#">↓ PDF Report</a>
+      <button class="btn-outline" onclick="toggleBench()">◎ Toggle Benchmarks</button>
+    </div>
+
+    <!-- Region Cards -->
+    <div class="section-label">Region Activation Scores</div>
+    <div class="grid" id="grid"></div>
+
+    <!-- Strongest Signals -->
+    <div class="strongest" id="strongest">
+      <div class="section-label">Strongest Signals</div>
+      <div id="sigList"></div>
+    </div>
+
+    <!-- Radar -->
+    <div class="chart-section">
+      <div class="section-label">Radar Profile</div>
+      <div class="chart-wrap">
+        <img id="radarImg" src="" alt="Radar chart">
+        <div class="chart-cap">6-region activation profile</div>
+      </div>
+    </div>
+
+    <!-- Timeline Heatmap -->
+    <div class="chart-section">
+      <div class="section-label">Timeline Heatmap</div>
+      <div class="chart-wrap">
+        <img id="timelineImg" src="" alt="Timeline heatmap">
+        <div class="chart-cap">Region activation intensity over time</div>
+      </div>
+    </div>
+
+    <!-- Multi-line -->
+    <div class="chart-section">
+      <div class="section-label">Activation Waveforms</div>
+      <div class="chart-wrap">
+        <img id="hmapImg" src="" alt="Waveforms">
+        <div class="chart-cap">All regions overlaid on timeline</div>
+      </div>
+    </div>
+
+    <button class="new-analysis-btn" onclick="reset()">+ New Analysis</button>
+  </div>
+</div>
+
+<script>
+const COLORS={broca_area:'#00e5ff',amygdala:'#ff3d71',nucleus_accumbens:'#ffaa00',hippocampus:'#00e096',superior_parietal:'#6366f1',tpj:'#a855f7'};
+const token=localStorage.getItem('token');
+if(!token) window.location.href='/login';
+document.getElementById('userPill').textContent=localStorage.getItem('email')||'';
+
+const form=document.getElementById('form'),file=document.getElementById('file'),
+  fname=document.getElementById('fname'),go=document.getElementById('go'),
+  loader=document.getElementById('loader'),results=document.getElementById('results'),
+  grid=document.getElementById('grid'),sigList=document.getElementById('sigList');
+let benchVisible=false, lastAnalysisId=null;
+
+file.onchange=()=>{if(file.files[0]){fname.textContent=file.files[0].name;go.disabled=false}};
+['dragenter','dragover'].forEach(e=>document.getElementById('zone').addEventListener(e,ev=>{ev.preventDefault();document.getElementById('zone').classList.add('active')}));
+['dragleave','drop'].forEach(e=>document.getElementById('zone').addEventListener(e,()=>document.getElementById('zone').classList.remove('active')));
+
+form.onsubmit=async e=>{
+  e.preventDefault();if(!file.files[0])return;
+  form.style.display='none';loader.classList.add('show');
+  const fd=new FormData();fd.append('video',file.files[0]);fd.append('category',document.getElementById('category').value);
+  try{
+    const r=await fetch('/analyze',{method:'POST',body:fd,headers:{'Authorization':'Bearer '+token}});
+    if(r.status===401){window.location.href='/login';return}
+    const d=await r.json();if(!r.ok)throw new Error(d.error||'Error');
+    lastAnalysisId=d.id;
+    renderResults(d);
+    loader.classList.remove('show');results.classList.add('show');
+  }catch(err){alert(err.message);reset()}
+};
+
+function renderResults(d){
+  grid.innerHTML='';
+  for(const[key,r] of Object.entries(d.regions)){
+    const col=COLORS[key]||'#00e5ff';
+    grid.innerHTML+=`
+    <div class="card">
+      <div class="card-top">
+        <div><div class="card-label">${r.label}</div><div class="card-sub">${r.sub}</div></div>
+        <div class="card-val" style="color:${col}">${r.score.toFixed(2)}</div>
+      </div>
+      <div class="bar-track"><div class="bar-fill" style="width:${r.score*100}%;background:${col}"></div></div>
+      <div class="card-pct">${r.percentile}</div>
+      <div class="card-insight">${r.insight}</div>
+      <div class="bench" data-key="${key}">
+        <div class="bench-label">Viral avg: ${r.benchmark.toFixed(2)} | Category: ${(r.cat_benchmark||0).toFixed(2)}</div>
+        <div class="bench-track"><div class="bench-fill" style="width:${r.benchmark*100}%"></div><div class="bench-marker" style="left:${r.score*100}%"></div></div>
+      </div>
+    </div>`;
+  }
+
+  sigList.innerHTML='';
+  d.strongest.forEach((s,i)=>{
+    sigList.innerHTML+=`<div class="sig-row"><span class="sig-rank">${i+1}.</span><span class="sig-val">${s.score.toFixed(2)}</span><span class="sig-name">${s.label}</span><span class="sig-insight">${s.insight}</span></div>`;
+  });
+
+  document.getElementById('radarImg').src=d.radar+'?'+Date.now();
+  document.getElementById('timelineImg').src=d.timeline+'?'+Date.now();
+  document.getElementById('hmapImg').src=d.heatmap+'?'+Date.now();
+  document.getElementById('pdfBtn').href=`/api/export/pdf/${d.id}`;
+  document.getElementById('csvBtn').href='/api/export/csv';
+}
+
+function toggleBench(){
+  benchVisible=!benchVisible;
+  document.querySelectorAll('.bench').forEach(el=>el.classList.toggle('show',benchVisible));
+}
+
+function reset(){
+  results.classList.remove('show');loader.classList.remove('show');
+  form.style.display='block';file.value='';fname.textContent='';go.disabled=true;
+  benchVisible=false;
+}
+
+function logout(){localStorage.removeItem('token');localStorage.removeItem('email');window.location.href='/login'}
+</script>
+</body>
+</html>

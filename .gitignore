@@ -1,0 +1,38 @@
+# Environment
+.env
+.env.production
+
+# Database
+*.db
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.egg-info/
+dist/
+build/
+
+# Model weights (676 MB — use download_model.py on new deployments)
+models/
+cache/
+
+# Data files (too large for GitHub)
+*.npy
+viral/
+non_viral/
+reels_data.csv
+test_video.mp4
+
+# Generated assets
+uploads/
+static/heatmap_*.png
+static/timeline_*.png
+static/radar_*.png
+out.txt
+
+# IDE / OS
+.vscode/
+.idea/
+Thumbs.db
+.DS_Store
