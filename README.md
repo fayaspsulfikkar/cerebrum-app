@@ -13,6 +13,17 @@ We analyzed 20 videos (10 viral, 10 non-viral) using TRIBE v2 and found NO corre
 - Non-viral videos: Average brain activation 0.37-0.40
 - **Difference: Statistically insignificant**
 
+<div align="center">
+  <img src="research_plots/01_comparison_boxplot.png" width="45%" />
+  <img src="research_plots/02_correlation_plot.png" width="45%" />
+</div>
+<div align="center">
+  <img src="research_plots/04_timeline_heatmap.png" width="90%" />
+</div>
+<div align="center">
+  <img src="research_plots/03_radar_chart.png" width="45%" />
+</div>
+
 ### Implications
 TRIBE v2 is valuable for understanding content quality and neural engagement, but cannot predict virality.
 
