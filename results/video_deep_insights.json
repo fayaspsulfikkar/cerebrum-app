@@ -1,0 +1,864 @@
+{
+  "1": {
+    "id": 1,
+    "platform": "youtube",
+    "label": "viral",
+    "hook_strength": 0.169,
+    "peak_region": "parietal",
+    "peak_time_s": 16.0,
+    "peak_val": 0.2048,
+    "retention_slope": 0.005007,
+    "peak_moments": [],
+    "engagement_curve": "research_plots/time_series/1.png"
+  },
+  "2": {
+    "id": 2,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "3": {
+    "id": 3,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "4": {
+    "id": 4,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "5": {
+    "id": 5,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "6": {
+    "id": 6,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "7": {
+    "id": 7,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "8": {
+    "id": 8,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "9": {
+    "id": 9,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "10": {
+    "id": 10,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "11": {
+    "id": 11,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "12": {
+    "id": 12,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "13": {
+    "id": 13,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "14": {
+    "id": 14,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "15": {
+    "id": 15,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "16": {
+    "id": 16,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "17": {
+    "id": 17,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "18": {
+    "id": 18,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "19": {
+    "id": 19,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "20": {
+    "id": 20,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "21": {
+    "id": 21,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "22": {
+    "id": 22,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "23": {
+    "id": 23,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "24": {
+    "id": 24,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "25": {
+    "id": 25,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "26": {
+    "id": 26,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "27": {
+    "id": 27,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "28": {
+    "id": 28,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "29": {
+    "id": 29,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "30": {
+    "id": 30,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "31": {
+    "id": 31,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "32": {
+    "id": 32,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "33": {
+    "id": 33,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "34": {
+    "id": 34,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "35": {
+    "id": 35,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "36": {
+    "id": 36,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "37": {
+    "id": 37,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "38": {
+    "id": 38,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "39": {
+    "id": 39,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "40": {
+    "id": 40,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "41": {
+    "id": 41,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "42": {
+    "id": 42,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "43": {
+    "id": 43,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "44": {
+    "id": 44,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "45": {
+    "id": 45,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "46": {
+    "id": 46,
+    "platform": "youtube",
+    "label": "viral"
+  },
+  "47": {
+    "id": 47,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "48": {
+    "id": 48,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "49": {
+    "id": 49,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "50": {
+    "id": 50,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "51": {
+    "id": 51,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "52": {
+    "id": 52,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "53": {
+    "id": 53,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "54": {
+    "id": 54,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "55": {
+    "id": 55,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "56": {
+    "id": 56,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "57": {
+    "id": 57,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "58": {
+    "id": 58,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "59": {
+    "id": 59,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "60": {
+    "id": 60,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "61": {
+    "id": 61,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "62": {
+    "id": 62,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "63": {
+    "id": 63,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "64": {
+    "id": 64,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "65": {
+    "id": 65,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "66": {
+    "id": 66,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "67": {
+    "id": 67,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "68": {
+    "id": 68,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "69": {
+    "id": 69,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "70": {
+    "id": 70,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "71": {
+    "id": 71,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "72": {
+    "id": 72,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "73": {
+    "id": 73,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "74": {
+    "id": 74,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "75": {
+    "id": 75,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "76": {
+    "id": 76,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "77": {
+    "id": 77,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "78": {
+    "id": 78,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "79": {
+    "id": 79,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "81": {
+    "id": 81,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "82": {
+    "id": 82,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "83": {
+    "id": 83,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "84": {
+    "id": 84,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "85": {
+    "id": 85,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "86": {
+    "id": 86,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "87": {
+    "id": 87,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "88": {
+    "id": 88,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "89": {
+    "id": 89,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "90": {
+    "id": 90,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "91": {
+    "id": 91,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "92": {
+    "id": 92,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "93": {
+    "id": 93,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "94": {
+    "id": 94,
+    "platform": "youtube",
+    "label": "non_viral"
+  },
+  "95": {
+    "id": 95,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "96": {
+    "id": 96,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "97": {
+    "id": 97,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "98": {
+    "id": 98,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "99": {
+    "id": 99,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "100": {
+    "id": 100,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "101": {
+    "id": 101,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "102": {
+    "id": 102,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "103": {
+    "id": 103,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "104": {
+    "id": 104,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "105": {
+    "id": 105,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "106": {
+    "id": 106,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "107": {
+    "id": 107,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "108": {
+    "id": 108,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "109": {
+    "id": 109,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "110": {
+    "id": 110,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "111": {
+    "id": 111,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "113": {
+    "id": 113,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "114": {
+    "id": 114,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "115": {
+    "id": 115,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "116": {
+    "id": 116,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "117": {
+    "id": 117,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "118": {
+    "id": 118,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "119": {
+    "id": 119,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "120": {
+    "id": 120,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "121": {
+    "id": 121,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "122": {
+    "id": 122,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "123": {
+    "id": 123,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "124": {
+    "id": 124,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "125": {
+    "id": 125,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "126": {
+    "id": 126,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "127": {
+    "id": 127,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "128": {
+    "id": 128,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "129": {
+    "id": 129,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "130": {
+    "id": 130,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "131": {
+    "id": 131,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "132": {
+    "id": 132,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "133": {
+    "id": 133,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "134": {
+    "id": 134,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "135": {
+    "id": 135,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "136": {
+    "id": 136,
+    "platform": "instagram",
+    "label": "viral"
+  },
+  "137": {
+    "id": 137,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "138": {
+    "id": 138,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "139": {
+    "id": 139,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "140": {
+    "id": 140,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "141": {
+    "id": 141,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "142": {
+    "id": 142,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "143": {
+    "id": 143,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "144": {
+    "id": 144,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "145": {
+    "id": 145,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "146": {
+    "id": 146,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "147": {
+    "id": 147,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "148": {
+    "id": 148,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "149": {
+    "id": 149,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "150": {
+    "id": 150,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "151": {
+    "id": 151,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "152": {
+    "id": 152,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "153": {
+    "id": 153,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "154": {
+    "id": 154,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "155": {
+    "id": 155,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "156": {
+    "id": 156,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "157": {
+    "id": 157,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "158": {
+    "id": 158,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "159": {
+    "id": 159,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "160": {
+    "id": 160,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "161": {
+    "id": 161,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "162": {
+    "id": 162,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "163": {
+    "id": 163,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "164": {
+    "id": 164,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "165": {
+    "id": 165,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "166": {
+    "id": 166,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "167": {
+    "id": 167,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "168": {
+    "id": 168,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "169": {
+    "id": 169,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "170": {
+    "id": 170,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "171": {
+    "id": 171,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "172": {
+    "id": 172,
+    "platform": "instagram",
+    "label": "non_viral"
+  },
+  "173": {
+    "id": 173,
+    "platform": "instagram",
+    "label": "non_viral"
+  }
+}

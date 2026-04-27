@@ -1,0 +1,24 @@
+TRIBE v2 Brain Analysis -- Research Summary
+============================================================
+
+Q1: Does brain activation predict virality?
+  Viral mean activation    : 0.0145
+  Non-viral mean activation: None
+  p-value: N/A
+
+  Answer: NO (p >= 0.05)
+
+Q2: Do viral videos have stronger hooks (first 6 seconds)?
+  Viral hook mean    : 0.1690
+  Non-viral hook: N/A
+  Viral > Non-viral  : NO
+
+Q3: Which brain region differs most between viral vs non-viral?
+  Region: Superior Parietal (parietal)
+  Viral mean    : 0.1635
+  Non-viral mean: None
+  Absolute diff : 0.1635
+  Cohen's d     : None
+
+ROI Mapping: nilearn Destrieux surface atlas on fsaverage5 (aparc.a2009s)
+TR duration: 2.0 seconds

@@ -1,0 +1,69 @@
+{
+  "broca": {
+    "viral_mean": -0.0331,
+    "nonviral_mean": null,
+    "mann_whitney": {
+      "u_stat": null,
+      "p_value": null,
+      "cohens_d": null
+    }
+  },
+  "amygdala": {
+    "viral_mean": -0.0396,
+    "nonviral_mean": null,
+    "mann_whitney": {
+      "u_stat": null,
+      "p_value": null,
+      "cohens_d": null
+    }
+  },
+  "nacc": {
+    "viral_mean": -0.0167,
+    "nonviral_mean": null,
+    "mann_whitney": {
+      "u_stat": null,
+      "p_value": null,
+      "cohens_d": null
+    }
+  },
+  "hippocampus": {
+    "viral_mean": -0.0174,
+    "nonviral_mean": null,
+    "mann_whitney": {
+      "u_stat": null,
+      "p_value": null,
+      "cohens_d": null
+    }
+  },
+  "parietal": {
+    "viral_mean": 0.1635,
+    "nonviral_mean": null,
+    "mann_whitney": {
+      "u_stat": null,
+      "p_value": null,
+      "cohens_d": null
+    }
+  },
+  "tpj": {
+    "viral_mean": 0.0305,
+    "nonviral_mean": null,
+    "mann_whitney": {
+      "u_stat": null,
+      "p_value": null,
+      "cohens_d": null
+    }
+  },
+  "mean_activation": {
+    "viral_mean": 0.0145,
+    "nonviral_mean": null,
+    "mann_whitney": {
+      "u_stat": null,
+      "p_value": null,
+      "cohens_d": null
+    }
+  },
+  "views_correlation": {
+    "n": 0,
+    "note": "insufficient data"
+  }
+}

@@ -1,6 +1,9 @@
 # Environment
 .env
 .env.production
+.venv
+venv/
+env/
 
 # Database
 *.db
@@ -13,23 +16,27 @@ __pycache__/
 dist/
 build/
 
-# Model weights (676 MB — use download_model.py on new deployments)
+# Exclude large/sensitive files
+models/best.ckpt
 models/
+uploads/videos/
+uploads/tribe_outputs/
 cache/
+logs/
 
-# Data files (too large for GitHub)
+# Exclude specific extensions
+*.npz
+*.mp4
+*.pt
+*.ckpt
 *.npy
-viral/
-non_viral/
-reels_data.csv
-test_video.mp4
 
 # Generated assets
 uploads/
+out.txt
 static/heatmap_*.png
 static/timeline_*.png
 static/radar_*.png
-out.txt
 
 # IDE / OS
 .vscode/

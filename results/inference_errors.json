@@ -1,0 +1,6 @@
+[
+  {
+    "id": 1,
+    "error": "ID=1: RuntimeError: DataLoader worker (pid(s) 24304, 25000, 10800, 17180, 19028, 20232, 6984, 12120, 25668, 14272, 11952, 4976, 26336, 21956) exited unexpectedly"
+  }
+]
